@@ -14,11 +14,6 @@
         public Region Region { get; set; }
         public WalkDifficulty WalkDifficulty { get; set; }
 
-        // Adding a comment for testing
-
-        // Adding another comment
-
-        // Adding another comment
 
     }
 }
