@@ -14,7 +14,7 @@
         public Region Region { get; set; }
         public WalkDifficulty WalkDifficulty { get; set; }
 
-        // Adding a commit for testing
+        // Adding a comment for testing
 
     }
 }
