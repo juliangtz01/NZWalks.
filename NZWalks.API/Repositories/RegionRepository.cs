@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
 
@@ -17,6 +18,22 @@ namespace NZWalks.API.Repositories
         {
             region.Id = Guid.NewGuid();
             await nZWalksDbContext.AddAsync(region);
+            await nZWalksDbContext.SaveChangesAsync();
+            return region;
+        }
+
+        public async Task<Region> DeletAsyn(Guid id)
+        {
+            var region = await nZWalksDbContext.Regions.FirstOrDefaultAsync(x => x.Id == id);
+
+            if(region == null)
+            {
+                return null;
+            }
+
+            // Delete the Region
+
+            nZWalksDbContext.Regions.Remove(region);
             await nZWalksDbContext.SaveChangesAsync();
             return region;
         }
