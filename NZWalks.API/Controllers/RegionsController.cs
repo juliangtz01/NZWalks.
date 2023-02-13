@@ -120,14 +120,14 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpDelete]
-        [Route("id:guid")]
+        [Route("{id:guid}")]
         public async Task<IActionResult> DeleteRegionAsync(Guid id)
         {
             // Get region from database
             var region = await regionRepository.DeletAsyn(id);
 
             // If null NotFound
-            if(region == null)
+            if (region == null)
             {
                 return NotFound();
             }
