@@ -5,7 +5,7 @@ using NZWalks.API.Repositories;
 namespace NZWalks.API.Controllers
 {
     [ApiController]
-    [Route("Controller")]
+    [Route("[controller]")]
     public class WalksController : Controller
     {
         private readonly IWalkRepository walkRepository;
@@ -17,6 +17,7 @@ namespace NZWalks.API.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAllWalksAsync()
         {
             // Fetch data from database - domain walks
