@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Models.Domain;
+using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
 
 namespace NZWalks.API.Controllers
@@ -145,6 +146,45 @@ namespace NZWalks.API.Controllers
             };
 
             // return Ok response
+            return Ok(regionDTO);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateRegionAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateRegionRequest updateRegionRequest)
+        {
+            // Convert DTO to Domain model
+            var region = new Models.Domain.Region()
+            {
+                Code = updateRegionRequest.Code,
+                Area = updateRegionRequest.Area,
+                Lat = updateRegionRequest.Lat,
+                Long = updateRegionRequest.Long,
+                Name = updateRegionRequest.Name,
+                Population = updateRegionRequest.Population
+            };
+
+            // Update Region using repository
+            await regionRepository.UpdateAsyn(id, region);
+
+            // If Null then NotFound
+            if(region == null)
+            {
+                return NotFound();
+            }
+
+            // Covert Domain back to DTO
+            var regionDTO = new Models.DTO.Region
+            {
+                Id = region.Id,
+                Code = region.Code,
+                Name = region.Name,
+                Area = region.Area,
+                Lat = region.Lat,
+                Long = region.Long,
+                Population = region.Population
+            };
+
+            // Returon OK response
             return Ok(regionDTO);
         }
     }
