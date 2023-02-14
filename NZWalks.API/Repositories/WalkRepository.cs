@@ -39,5 +39,23 @@ namespace NZWalks.API.Repositories
                 .Include(x => x.WalkDifficulty)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Walk> UpdateAsync(Guid id, Walk walk)
+        {
+            var existingWalk = await nZWalksDbContext.Walks.FindAsync(id);
+
+            if(existingWalk != null)
+            {
+                existingWalk.Length = walk.Length;
+                existingWalk.Name = walk.Name;
+                existingWalk.WalkDifficulty = walk.WalkDifficulty;
+                existingWalk.Region = walk.Region;
+
+                await nZWalksDbContext.SaveChangesAsync();
+                return existingWalk;
+            }
+
+            return null;
+        }
     }
 }
