@@ -150,6 +150,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpPut]
+        [Route("{id:guid}")]
         public async Task<IActionResult> UpdateRegionAsync([FromRoute] Guid id, [FromBody] Models.DTO.UpdateRegionRequest updateRegionRequest)
         {
             // Convert DTO to Domain model
